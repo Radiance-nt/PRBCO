@@ -1,25 +1,25 @@
 import torch
-from torch import nn
+import torch.nn as nn
 
 
-class net(nn.Module):
+class Net(nn.Module):
     def __init__(self, state_space_size, action_space_size):
-        super(net, self).__init__()
+        super(Net, self).__init__()
         self.mlps = nn.Sequential(
             nn.Linear(state_space_size, 40),
             nn.ReLU(),
 
-            nn.Linear(40, 80),
-            nn.ReLU(),
-
-            nn.Linear(80, 120),
-            nn.ReLU(),
-
-            nn.Linear(120, 100),
-            nn.ReLU(),
-
-            nn.Linear(100, 40),
-            nn.ReLU(),
+            # nn.Linear(40, 80),
+            # nn.ReLU(),
+            #
+            # nn.Linear(80, 120),
+            # nn.ReLU(),
+            #
+            # nn.Linear(120, 100),
+            # nn.ReLU(),
+            #
+            # nn.Linear(100, 40),
+            # nn.ReLU(),
 
             nn.Linear(40, 20),
             nn.ReLU(),

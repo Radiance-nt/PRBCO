@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from IPython import display
 from matplotlib import style
 
-from model import net
+from model.net import Net
 
 plt.style.use("ggplot")
 
@@ -67,7 +67,7 @@ def to_input(states, actions, n=2, compare=1):
 
 
 # selecting number expert trajectories from expert data
-number_expert_trajectories = 400
+number_expert_trajectories = 200
 a = np.random.randint(expert_states.shape[0] - number_expert_trajectories)
 expert_state, expert_action = to_input(expert_states[a: a + number_expert_trajectories],
                                        expert_actions[a: a + number_expert_trajectories],
@@ -89,34 +89,14 @@ print("testing_set", testing_set.shape)
 
 
 # Network arch Behavioral Cloning , loss function and optimizer
-bc_walker = nn.Sequential(
-    nn.Linear(state_space_size, 40),
-    nn.ReLU(),
+bc_walker = Net(state_space_size, action_space_size)
 
-    # nn.Linear(40, 80),
-    # nn.ReLU(),
-    #
-    # nn.Linear(80, 120),
-    # nn.ReLU(),
-    #
-    # nn.Linear(120, 100),
-    # nn.ReLU(),
-    #
-    # nn.Linear(100, 40),
-    # nn.ReLU(),
-
-    nn.Linear(40, 20),
-    nn.ReLU(),
-
-    nn.Linear(20, action_space_size),
-    nn.Softmax()
-)
 locate = None
 # locate = "model/100.pkl"
 if locate is None:
     # criterion = nn.CrossEntropyLoss()
     criterion = nn.MSELoss()
-    learning_rate = 0.005
+    learning_rate = 0.003
 
     loss_list = []
     test_loss = []
