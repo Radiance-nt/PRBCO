@@ -18,6 +18,28 @@ class Net(nn.Module):
         )
         # self.lstm = nn.LSTM(input_size=n_class, hidden_size=n_hidden)
 
+    def forward(self, x):
+        output = self.mlps(x)
+        return output
+
+
+class Inverse(nn.Module):
+    def __init__(self, stack, state_space_size, action_space_size):
+        super(Inverse, self).__init__()
+        self.mlps = nn.Sequential(
+            nn.Linear(stack * state_space_size, 20),
+            nn.ReLU(),
+
+            nn.Linear(20, 40),
+            nn.ReLU(),
+
+            nn.Linear(40, 10),
+            nn.ReLU(),
+
+            nn.Linear(10, action_space_size)
+        )
+
+        # self.lstm = nn.LSTM(input_size=n_class, hidden_size=n_hidden)
 
     def forward(self, x):
         output = self.mlps(x)
