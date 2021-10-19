@@ -8,25 +8,16 @@ class Net(nn.Module):
         self.mlps = nn.Sequential(
             nn.Linear(state_space_size, 40),
             nn.ReLU(),
-
-            # nn.Linear(40, 80),
-            # nn.ReLU(),
-            #
-            # nn.Linear(80, 120),
-            # nn.ReLU(),
-            #
-            # nn.Linear(120, 100),
-            # nn.ReLU(),
-            #
-            # nn.Linear(100, 40),
-            # nn.ReLU(),
-
+            # nn.BatchNorm1d(20),
             nn.Linear(40, 20),
             nn.ReLU(),
-
-            nn.Linear(20, action_space_size),
+            nn.Linear(20, 10),
+            nn.ReLU(),
+            nn.Linear(10, action_space_size),
             nn.Softmax()
         )
+        # self.lstm = nn.LSTM(input_size=n_class, hidden_size=n_hidden)
+
 
     def forward(self, x):
         output = self.mlps(x)
